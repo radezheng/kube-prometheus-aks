@@ -100,6 +100,7 @@ spec:
       hostPID: true
       nodeSelector:
         kubernetes.io/os: linux
+        kubernetes.azure.com/scalesetpriority: "spot"
       priorityClassName: system-cluster-critical
       securityContext:
         runAsGroup: 65534
@@ -108,6 +109,10 @@ spec:
       serviceAccountName: node-exporter
       tolerations:
       - operator: Exists
+      - key: "kubernetes.azure.com/scalesetpriority"
+        operator: "Equal"
+        value: "spot"
+        effect: "NoSchedule"
       volumes:
       - hostPath:
           path: /sys

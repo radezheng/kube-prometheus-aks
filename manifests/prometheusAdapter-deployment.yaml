@@ -91,7 +91,12 @@ spec:
           name: config
           readOnly: false
       nodeSelector:
-        kubernetes.io/os: linux
+        kubernetes.azure.com/scalesetpriority: "spot"
+      tolerations:
+        - key: "kubernetes.azure.com/scalesetpriority"
+          operator: "Equal"
+          value: "spot"
+          effect: "NoSchedule"
       serviceAccountName: prometheus-adapter
       volumes:
       - emptyDir: {}
